@@ -1,98 +1,210 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <View style={styles.container}>
+      {/* BACKGROUND DECOR */}
+      <View style={[styles.glowBlob, { top: '-10%', left: '-20%', backgroundColor: '#0ea5e950' }]} />
+      <View style={[styles.glowBlob, { bottom: '-15%', right: '-25%', backgroundColor: '#22d3ee30' }]} />
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        {/* SECTION FOTO PROFILE */}
+        <View style={styles.profileContainer}>
+          <View style={styles.photoFrameOuter}>
+            <View style={styles.photoFrameInner}>
+              <Image 
+                source={require('../../assets/images/profile1.jpeg')} 
+                style={styles.profilePic} 
+              />
+            </View>
+          </View>
+          <View style={styles.statusIndicator} />
+        </View>
+
+        {/* SECTION IDENTITAS */}
+        <View style={styles.identityContainer}>
+          <Text 
+            style={styles.nameText} 
+            numberOfLines={1} 
+            adjustsFontSizeToFit={true}
+          >
+            Samuel Ricardo Mendrofa
+          </Text>
+          
+          {/* JURUSAN DENGAN STYLE MIRING */}
+          <Text style={styles.majorText}>Sistem Informasi</Text>
+          
+          <View style={styles.nimBadgeOuter}>
+            <View style={styles.nimBadgeInner}>
+              <Text style={styles.nimText}>243303621285</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* SECTION QUOTE CARD */}
+        <View style={styles.quoteCard}>
+          <Text style={styles.quoteMark}>“</Text>
+          <Text style={styles.quoteText}>
+            There is surely a future hope for you, and your hope will not be cut off.
+          </Text>
+          <View style={styles.quoteDivider} />
+          <Text style={styles.quoteAuthor}>— Proverbs 23:18</Text>
+        </View>
+        
+        {/* FOOTER */}
+        <Text style={styles.unpriText}>Universitas Prima Indonesia</Text>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: '#020617',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  glowBlob: {
     position: 'absolute',
+    width: 400,
+    height: 400,
+    borderRadius: 200,
+    opacity: 0.1,
+  },
+  scrollContent: {
+    alignItems: 'center',
+    paddingVertical: 80,
+    paddingHorizontal: 30,
+  },
+  profileContainer: {
+    position: 'relative',
+    marginBottom: 20,
+  },
+  photoFrameOuter: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#0f172a',
+    borderWidth: 1,
+    borderColor: '#1e293b',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 15,
+  },
+  photoFrameInner: {
+    width: 136,
+    height: 136,
+    borderRadius: 68,
+    borderWidth: 2,
+    borderColor: '#0ea5e9',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profilePic: {
+    width: 128,
+    height: 128,
+    borderRadius: 64,
+  },
+  statusIndicator: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#34d399',
+    borderWidth: 3,
+    borderColor: '#020617',
+  },
+  identityContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+    width: '100%',
+  },
+  nameText: {
+    fontSize: 24,
+    fontWeight: '900',
+    color: '#f8fafc',
+    textAlign: 'center',
+    width: '100%',
+  },
+  majorText: {
+    fontSize: 17, // Sedikit diperbesar
+    color: '#cbd5e1',
+    fontWeight: '500',
+    fontStyle: 'italic', // Membuat teks miring
+    textAlign: 'center',
+    marginTop: 4,
+    opacity: 0.9,
+  },
+  nimBadgeOuter: {
+    marginTop: 15,
+    borderRadius: 20,
+  },
+  nimBadgeInner: {
+    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+    borderWidth: 1,
+    borderColor: '#22d3ee80',
+    paddingHorizontal: 20,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+  nimText: {
+    color: '#22d3ee',
+    fontWeight: '800',
+    letterSpacing: 1.5,
+    fontSize: 12,
+  },
+  quoteCard: {
+    backgroundColor: '#0f172a',
+    width: '100%',
+    padding: 30,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: '#1e293b',
+    alignItems: 'center',
+    marginBottom: 50,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    elevation: 8,
+  },
+  quoteMark: {
+    fontSize: 60,
+    color: '#0ea5e9',
+    fontWeight: 'bold',
+    fontFamily: 'serif',
+    marginBottom: -35,
+    marginTop: -10,
+    opacity: 0.6,
+  },
+  quoteText: {
+    color: '#f1f5f9',
+    fontSize: 18,
+    fontStyle: 'italic',
+    lineHeight: 28,
+    textAlign: 'center',
+    fontWeight: '400',
+  },
+  quoteDivider: {
+    width: 40,
+    height: 2,
+    backgroundColor: '#0ea5e9',
+    marginVertical: 15,
+    borderRadius: 1,
+  },
+  quoteAuthor: {
+    color: '#94a3b8',
+    fontSize: 13,
+    fontWeight: '700',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+  unpriText: {
+    color: '#475569',
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 2,
+    textTransform: 'uppercase',
   },
 });
